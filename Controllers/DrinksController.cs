@@ -38,10 +38,20 @@ namespace ShoppingListApi.Controllers
             };
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // need same validation as POST
+        // validate id is a valid MD5 hex val
+        // must be required quantity on body
+        public dynamic Put(string id, [FromBody] Drink drink)
         {
+            var updated = ShoppingList.Update(id, drink.Quantity);
+
+            return new
+            {
+                success = updated.Item1,
+                message = "",
+                result = updated.Item2
+            };
         }
 
         // DELETE api/values/5
