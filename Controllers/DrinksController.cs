@@ -17,9 +17,11 @@ namespace ShoppingListApi.Controllers
         }
 
        [HttpGet("{id}")]
-       public Item Get(string id)
+       public IActionResult Get(string id)
        {
-           return ShoppingList.FindById(id);
+           var drink = ShoppingList.FindById(id);
+
+           return drink != null ? (IActionResult) Ok(drink) : NotFound();
        }
 
         [HttpPost]
