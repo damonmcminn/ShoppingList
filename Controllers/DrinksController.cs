@@ -21,7 +21,7 @@ namespace ShoppingListApi.Controllers
             // StringValues implicitly called ToString???
             var drink = ShoppingList.FindByName(name.ToString());
 
-            if (drink == null)
+            if (hasQuery && drink == null)
             {
                 return NotFound();
             }
