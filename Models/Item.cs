@@ -30,7 +30,8 @@ namespace ShoppingListApi.Models
         private string _name;
         public string Name
         {
-            get { return _name; }
+            // without an empty string, cannot bind model in PUT for Quantity
+            get { return _name ?? ""; }
             set { _name = value.Trim(); }
 
         }
