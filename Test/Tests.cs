@@ -60,5 +60,15 @@ namespace ShoppingListApi.Test
 
             Assert.True(result.Item1);
         }
+
+        [Test, Order(4)]
+        public void FindByName()
+        {
+            var foundPepsi = ShoppingList.FindByName("    pepsi");
+            var notFoundCoke = ShoppingList.FindByName("coke");
+
+            Assert.NotNull(foundPepsi);
+            Assert.Null(notFoundCoke);
+        }
     }
 }

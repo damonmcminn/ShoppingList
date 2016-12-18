@@ -25,6 +25,12 @@ namespace ShoppingListApi.Lib
 
         public static Item FindById(string id) => Instance._items.Find(i => i.Id == id);
 
+        public static Item FindByName(string name)
+        {
+            var drink = new Drink(name);
+            return FindById(drink.Id);
+        }
+
         public static bool Add(Item item)
         {
             // how to compare objects? On what basis? simple string equality shoudl suffice
