@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+
 using ShoppingListApi.Lib;
+using ShoppingListApi.Models;
 
 namespace ShoppingListApi.Controllers
 {
@@ -17,12 +16,11 @@ namespace ShoppingListApi.Controllers
             return ShoppingList.Items;
         }
 
-//        // GET api/values/5
-//        [HttpGet("{id}")]
-//        public Item Get(string id)
-//        {
-//            return ShoppingList.Find(id);
-//        }
+       [HttpGet("{id}")]
+       public Item Get(string id)
+       {
+           return ShoppingList.FindById(id);
+       }
 
         // POST api/values
         [HttpPost]
