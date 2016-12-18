@@ -6,7 +6,7 @@ using ShoppingListApi.Models;
 
 namespace ShoppingListApi.Controllers
 {
-    [Route("ShoppingList/[controller]")]
+    [Route("[controller]")]
     public class DrinksController : Controller
     {
         // GET api/values
@@ -42,6 +42,7 @@ namespace ShoppingListApi.Controllers
         // need same validation as POST
         // validate id is a valid MD5 hex val
         // must be required quantity on body
+        // TODO:
         public dynamic Put(string id, [FromBody] Drink drink)
         {
             var updated = ShoppingList.Update(id, drink.Quantity);
