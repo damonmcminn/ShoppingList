@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ShoppingListApi.Models;
 
 namespace ShoppingListApi.Lib
@@ -46,11 +47,17 @@ namespace ShoppingListApi.Lib
             return Instance._items.Remove(item);
         }
 
-        public static bool Update(string id, int quantity)
+        public static Tuple<bool, Item> Update(string id, int quantity)
         {
             var alreadyInList = Contains(id);
+            var item = FindById(id);
 
-            return true;
+            if (alreadyInList)
+            {
+                item.Quantity = quantity;
+            }
+
+            return new Tuple<bool, Item>(alreadyInList, item);
         }
 
         public static bool Contains(string id)
