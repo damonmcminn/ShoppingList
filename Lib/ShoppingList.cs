@@ -20,9 +20,9 @@ namespace ShoppingListApi.Lib
             }
         }
 
-        // an "expression body" (for gets only?)
         public static List<Item> Items => Instance._items;
-        public static Item Find(string name) => Instance._items.Find(i => i.Id == name);
+
+        public static Item FindById(string id) => Instance._items.Find(i => i.Id == id);
 
         public static bool Add(Item item)
         {
@@ -39,23 +39,23 @@ namespace ShoppingListApi.Lib
             return true;
         }
 
-        public static bool Remove(string name)
+        public static bool Remove(string id)
         {
-            var item = Find(name);
+            var item = FindById(id);
 
             return Instance._items.Remove(item);
         }
 
-        public static bool Update(string name, int quantity)
+        public static bool Update(string id, int quantity)
         {
-            var alreadyInList = Contains(name);
+            var alreadyInList = Contains(id);
 
             return true;
         }
 
-        public static bool Contains(string name)
+        public static bool Contains(string id)
         {
-            return Find(name) != null;
+            return FindById(id) != null;
         }
     }
 }
