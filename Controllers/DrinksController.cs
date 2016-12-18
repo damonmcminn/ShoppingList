@@ -22,13 +22,20 @@ namespace ShoppingListApi.Controllers
            return ShoppingList.FindById(id);
        }
 
-        // POST api/values
         [HttpPost]
-        // is [FromBody] a list of middleware to call?
-        public IActionResult Post([FromBody] Drink drink)
+        // need to validate quantity not exist or >= 1
+        // ideally this would be shared across methods: decorator?
+        // name must be required
+        public dynamic Post([FromBody] Drink drink)
         {
-//            Console.WriteLine(drink.Name);
-            return Json(drink);
+            var successfullyAdded = ShoppingList.Add(drink);
+
+            return new
+            {
+                success = successfullyAdded,
+                message = "",
+                result = drink
+            };
         }
 
         // PUT api/values/5
