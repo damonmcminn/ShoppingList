@@ -57,8 +57,11 @@ namespace ShoppingListApi.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(string id)
         {
+            // explicit cast required
+            // http://stackoverflow.com/a/27822029
+            return ShoppingList.Remove(id) ? (IActionResult) Ok() : NotFound();
         }
     }
 }
