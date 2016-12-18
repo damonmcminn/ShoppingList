@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ShoppingListApi.Lib
+namespace ShoppingListApi.Models
 {
 
     public enum ItemTypes { Drink }

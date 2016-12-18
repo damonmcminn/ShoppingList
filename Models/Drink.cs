@@ -1,4 +1,4 @@
-﻿namespace ShoppingListApi.Lib
+﻿namespace ShoppingListApi.Models
 {
     public class Drink : Item
     {
