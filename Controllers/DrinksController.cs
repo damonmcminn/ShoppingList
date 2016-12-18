@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.Extensions.Primitives;
 using ShoppingListApi.Lib;
 using ShoppingListApi.Models;
 
@@ -11,9 +12,26 @@ namespace ShoppingListApi.Controllers
     {
         // GET api/values
         [HttpGet]
-        public List<Item> Get()
+        public IActionResult Get()
         {
-            return ShoppingList.Items;
+            StringValues name;
+            var hasQuery = Request.Query.TryGetValue("name", out name);
+            var items = ShoppingList.Items;
+
+            // StringValues implicitly called ToString???
+            var drink = ShoppingList.FindByName(name.ToString());
+
+            if (drink == null)
+            {
+                return NotFound();
+            }
+
+            if (hasQuery)
+            {
+                items = ShoppingList.Items.Where(item => item == drink).ToList();
+            }
+
+            return Ok(items);
         }
 
        [HttpGet("{id}")]
@@ -28,33 +46,26 @@ namespace ShoppingListApi.Controllers
         // need to validate quantity not exist or >= 1
         // ideally this would be shared across methods: decorator?
         // name must be required
-        public dynamic Post([FromBody] Drink drink)
+        public IActionResult Post([FromBody] Drink drink)
         {
             var successfullyAdded = ShoppingList.Add(drink);
 
-            return new
-            {
-                success = successfullyAdded,
-                message = "",
-                result = drink
-            };
+            // TODO: build URI dynamically
+            // currently doesn't have root domain and controller is hardcoded
+            return successfullyAdded ? (IActionResult) Created($"/Drinks/{drink.Id}", drink) : BadRequest();
         }
 
         [HttpPut("{id}")]
         // need same validation as POST
         // validate id is a valid MD5 hex val
         // must be required quantity on body
-        // TODO:
-        public dynamic Put(string id, [FromBody] Drink drink)
+        public IActionResult Put(string id, [FromBody] Drink data)
         {
-            var updated = ShoppingList.Update(id, drink.Quantity);
+            var updated = ShoppingList.Update(id, data.Quantity);
+            var alreadyExists = updated.Item1;
+            var drink = updated.Item2;
 
-            return new
-            {
-                success = updated.Item1,
-                message = "",
-                result = updated.Item2
-            };
+            return alreadyExists ? (IActionResult) Ok(drink) : NotFound();
         }
 
         // DELETE api/values/5
