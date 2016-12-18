@@ -47,6 +47,8 @@ namespace ShoppingListApi.Lib
             return Instance._items.Remove(item);
         }
 
+        // TODO: replace tuple with `out`
+        // https://msdn.microsoft.com/en-us/library/t3c3bfhx.aspx
         public static Tuple<bool, Item> Update(string id, int quantity)
         {
             var alreadyInList = Contains(id);
