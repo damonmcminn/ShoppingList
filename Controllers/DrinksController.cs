@@ -49,10 +49,7 @@ namespace ShoppingListApi.Controllers
         public IActionResult Post([FromBody] Drink drink)
         {
             var successfullyAdded = ShoppingList.Add(drink);
-
-            // TODO: build URI dynamically
-            // currently doesn't have root domain and controller is hardcoded
-            return successfullyAdded ? (IActionResult) Created($"/Drinks/{drink.Id}", drink) : BadRequest();
+            return successfullyAdded ? (IActionResult) Ok(drink) : BadRequest();
         }
 
         [HttpPut("{id}")]
