@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ShoppingListApi.Lib.Middleware;
 
 namespace ShoppingListApi
 {
@@ -49,6 +50,8 @@ namespace ShoppingListApi
             app.UseApplicationInsightsRequestTelemetry();
 
             app.UseApplicationInsightsExceptionTelemetry();
+
+            app.UseAuthMiddleware();
 
             app.UseMvc();
 
