@@ -51,12 +51,12 @@ namespace ShoppingListApi
 
             app.UseApplicationInsightsExceptionTelemetry();
 
+            app.UseSwagger();
+            app.UseSwaggerUi();
+
             app.UseAuthMiddleware();
 
             app.UseMvc();
-
-            app.UseSwagger();
-            app.UseSwaggerUi();
         }
     }
 }
