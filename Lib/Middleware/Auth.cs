@@ -27,14 +27,14 @@ namespace ShoppingListApi.Lib.Middleware
             httpContext.Request.Headers.TryGetValue(_authHeader, out key);
             var isAuthorized = key == _authKey;
 
-            if (isAuthorized)
-            {
-                await _next(httpContext);
-                return;
-            }
+            await (isAuthorized ? _next(httpContext) : RespondUnauthorized(httpContext));
+        }
 
+        private static Task RespondUnauthorized(HttpContext httpContext)
+        {
             httpContext.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
-            await httpContext.Response.WriteAsync("");
+
+            return httpContext.Response.WriteAsync("");
         }
     }
 }
