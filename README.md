@@ -6,6 +6,10 @@ An [ASP.NET Core Web API](https://docs.microsoft.com/en-us/aspnet/core/) CRUD sh
 
 - [.Net Core](https://www.microsoft.com/net/core)
 
+## Initial setup
+
+Restore packages by running `dotnet restore` from project root.
+
 ## Running the API
 
 Run `dotnet run` from project root.
